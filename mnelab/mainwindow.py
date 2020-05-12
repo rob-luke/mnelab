@@ -586,9 +586,16 @@ class MainWindow(QMainWindow):
         self.bads = self.model.current["data"].info["bads"]
         events = self.model.current["events"]
         nchan = self.model.current["data"].info["nchan"]
-        fig = self.model.current["data"].plot(events=events, n_channels=nchan,
-                                              title=self.model.current["name"],
-                                              scalings="auto", show=False)
+        if "epoched" in self.model.current["name"]:
+            fig = self.model.current["data"].plot(events=events, n_channels=nchan,
+                                                  title=self.model.current["name"],
+                                                  scalings="auto", show=False)
+        else:
+            fig = self.model.current["data"].plot(events=events, n_channels=nchan,
+                                                  title=self.model.current["name"],
+                                                  duration=60*30,
+                                                  scalings="auto", show=False)
+
         if events is not None:
             hist = f"data.plot(events=events, n_channels={nchan})"
         else:
