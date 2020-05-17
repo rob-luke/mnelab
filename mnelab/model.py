@@ -444,6 +444,11 @@ class Model:
         self.current["name"] += " (epoched)"
 
     @data_changed
+    def view_epochs(self):
+        for e in self.current["data"].event_id:
+            self.current["data"][e].plot_image(combine='mean')
+
+    @data_changed
     def convert_od(self):
         self.current["data"] = mne.preprocessing.nirs.optical_density(
             self.current["data"])

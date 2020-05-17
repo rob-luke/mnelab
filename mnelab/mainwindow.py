@@ -247,6 +247,8 @@ class MainWindow(QMainWindow):
         icon = QIcon(image_path("epoch_data.svg"))
         self.actions["epoch_data"] = tools_menu.addAction(
             icon, "Create Epochs...", self.epoch_data)
+        self.actions["view_epochs"] = tools_menu.addAction(
+            icon, "View Epochs...", self.view_epochs)
 
         view_menu = self.menuBar().addMenu("&View")
         self.actions["history"] = view_menu.addAction("&History...",
@@ -781,6 +783,11 @@ class MainWindow(QMainWindow):
                                          str(e), traceback.format_exc())
                 msgbox.show()
 
+    def view_epochs(self):
+        """View epoched data"""
+        self.model.view_epochs()
+
+
     def convert_od(self):
         """Convert to optical density."""
         self.auto_duplicate()
@@ -793,7 +800,7 @@ class MainWindow(QMainWindow):
     def convert_bl(self):
         """Convert to haemoglobin."""
         self.auto_duplicate()
-        self.model.convert_beer_ambert()
+        self.model.convert_beer_lambert()
 
     def set_reference(self):
         """Set reference."""
